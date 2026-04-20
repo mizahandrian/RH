@@ -2,6 +2,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AuthLayout from './components/AuthLayout';
+import MainLayout from './components/MainLayout';
+import Dashboard from './pages/Dashboard';
 
 const App: React.FC = () => {
   const isAuthenticated = !!localStorage.getItem('token');
@@ -10,10 +12,12 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/login" element={<AuthLayout />} />
-        <Route 
-          path="/" 
-          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} 
-        />
+        
+        <Route element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+        </Route>
+        
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
