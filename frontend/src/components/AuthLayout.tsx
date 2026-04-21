@@ -9,18 +9,37 @@ const AuthLayout: React.FC = () => {
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+  e.preventDefault();
+  setError('');
+  setLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Login attempt:', { fullName, password });
-      setLoading(false);
-      // Redirect or handle success here
-    }, 1500);
-  };
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fullName: fullName,
+        password: password,
+      }),
+    });
 
+    const data = await response.json();
+
+    if (!response.ok) {
+      setError(data.message);
+    } else {
+      console.log('User connecté:', data.user);
+      alert('Connexion réussie');
+    }
+
+  } catch (err) {
+    setError('Erreur serveur');
+  }
+
+  setLoading(false);
+};
   return (
     <div className="auth-container">
       <div className="auth-overlay"></div>
@@ -51,7 +70,7 @@ const AuthLayout: React.FC = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Mot de Passe</label>
             <input
               type="password"
               id="password"

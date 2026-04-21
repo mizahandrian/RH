@@ -121,11 +121,12 @@
     width: 100%;
     padding: 12px 14px; /* Réduit de 14px 16px à 12px 14px */
     font-size: 14px;
-    border: 1.5px solid #e5e5e5;
+    border: 1.5px solid #201f1f;
     border-radius: 8px; /* Réduit de 10px à 8px */
     transition: all 0.3s ease;
     background: #fafafa;
     font-family: inherit;
+    color: #000;
   }
   
   .form-group input:focus {
@@ -136,7 +137,7 @@
   }
   
   .form-group input::placeholder {
-    color: #bbb;
+    color: #2e2e2e;
     font-size: 13px;
   }
   
